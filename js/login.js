@@ -7,18 +7,13 @@ function login(event){
     const name = loginInput.value;
     localStorage.setItem("username", name);
     loginForm.classList.add("hidden");
+    printHello(name);
 
 }
 
-
-const username = localStorage.getItem("username");
-
-if(username == null) {
-    loginForm.addEventListener("submit", login);
-} else {
+function printHello(username){
     const date = new Date();
     const hour = Number(date.getHours());
-    console.log(hour);
     if (hour <= 6){
         greeting.innerText = `Good night, ${username}`;
     } else if (hour <= 12) {
@@ -29,5 +24,13 @@ if(username == null) {
         greeting.innerText = `Good evening, ${username}`;
     }
     greeting.classList.remove("hidden");
-    loginInput.classList.add("hidden");
+}
+
+const username = localStorage.getItem("username");
+
+if(username == null) {
+    loginForm.classList.remove("hidden");
+    loginForm.addEventListener("submit", login);
+} else {
+   printHello(username);
 }
